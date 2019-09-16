@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_major_minor"
+        android:title="@string/menu_mag_des"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_minor_major"
+        android:title="@string/menu_mag_as"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_by_hour"
+        android:title="@string/menu_last_first"
+        app:showAsAction="never" />
+</menu>

@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">EQReport</string>
+
+    <string name="main_activity_title">Last earthquakes</string>
+
+    <string-array name="settings_order_by">
+        <item>@string/menu_mag_as</item>
+        <item>@string/menu_mag_des</item>
+        <item>@string/menu_settings_last_first</item>
+    </string-array>
+
+    <string-array name="settings_order_by_values">
+        <item>@string/mag_as</item>
+        <item>@string/mag_des</item>
+        <item>@string/time</item>
+    </string-array>
+
+    <string name="menu_mag_as">Ascend magnitude</string>
+    <string name="menu_mag_des">Descend magnitude</string>
+    <string name="menu_settings_last_first">Last first</string>
+
+    <string name="key_order_by" translatable="false">orderby</string>
+    <string name="key_max_res" translatable="false">limit</string>
+    <string name="key_min_mag" translatable="false">minmagnitude</string>
+
+    <string name="def_order_by" translatable="false">time</string>
+    <string name="def_max_res" translatable="false">30</string>
+    <string name="def_min_mag" translatable="false">0.0</string>
+
+    <string name="mag_as" translatable="false">magnitude-asc</string>
+    <string name="mag_des" translatable="false">magnitude</string>
+    <string name="time" translatable="false">time</string>
+
+
+    <string name="nav_view_options">Options</string>
+    <string name="nav_view_settings">App settings</string>
+
+    <string name="settings_activity_title">Settings</string>
+    <string name="menu_settings_hint">Modify the default settings</string>
+    <string name="menu_settings_max_results">Max number of results</string>
+    <string name="menu_settings_sort_by">Get results by</string>
+    <string name="menu_settings_min_mag">Minimum magnitude of results</string>
+    <string name="menu_last_first">Last first</string>
+    <string name="menu_reset_settings">Reset settings</string>
+
+    <string name="dialog_max_results_title">Introduce the maximum number of results</string>
+    <string name="dialog_max_results_msg">Limit is 20000 results</string>
+    <string name="dialog_max_results_toast">The limit is 20000</string>
+    <string name="dialog_max_results_toast_fail">Invalid quantity</string>
+
+    <string name="dialog_sort_by_title">Sort results by</string>
+    <string name="preference_category_title">Basic Settings</string>
+
+    <string name="dialog_min_mag_title">Introduce de minimum magnitude for results</string>
+    <string name="dialog_min_mag_msg">Richter scale goes from 0 to 10</string>
+    <string name="dialog_min_mag_toast">The limit is 10</string>
+    <string name="dialog_min_mag_toast_fail">Invalid quantity</string>
+
+    <string name="toast_no_earthquakes_found">We couldn\'t get any earthquake data</string>
+
+    <string name="toast_no_data_found">We couldn\'t get any data</string>
+    <string name="toast_no_earthquakes_found_due_to_internet">There are no internet connection</string>
+
+
+</resources>

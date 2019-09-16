@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">EQReport</string>
+
+    <string name="main_activity_title">Últimos sismos</string>
+
+    <string-array name="settings_order_by">
+        <item>@string/menu_mag_as</item>
+        <item>@string/menu_mag_des</item>
+        <item>@string/menu_settings_last_first</item>
+    </string-array>
+
+    <string name="menu_mag_as">Magnitud ascendente</string>
+    <string name="menu_mag_des">Magnitud descendente</string>
+    <string name="menu_settings_last_first">Hora de sismo</string>
+
+
+    <string name="nav_view_options">Opciones</string>
+    <string name="nav_view_settings">Ajustes</string>
+
+    <string name="settings_activity_title">Ajustes</string>
+    <string name="menu_settings_hint">Modifica los ajustes por defecto</string>
+    <string name="menu_settings_max_results">Cantidad máxima de resultados</string>
+    <string name="menu_settings_sort_by">Obtener resultados por</string>
+    <string name="menu_settings_min_mag">Magnitud mínima de resultados</string>
+    <string name="menu_last_first">Últimos primero</string>
+    <string name="menu_reset_settings">Restaurar ajustes</string>
+
+    <string name="dialog_max_results_title">Introduce la cantidad máxima de resultados</string>
+    <string name="dialog_max_results_msg">El límite es 20000 resultados</string>
+    <string name="dialog_max_results_toast">El límite es 20000 resultados</string>
+    <string name="dialog_max_results_toast_fail">Cantidad inválida</string>
+
+    <string name="dialog_sort_by_title">Obtener resultador por</string>
+    <string name="preference_category_title">Parámetros básicos de búsqueda</string>
+
+    <string name="dialog_min_mag_title">Introduce la magnitud mínima de los resultados</string>
+    <string name="dialog_min_mag_msg">La escala de Richter va de 0 a 10</string>
+    <string name="dialog_min_mag_toast">El límite es 10</string>
+    <string name="dialog_min_mag_toast_fail">Cantidad inválida</string>
+
+    <string name="toast_no_earthquakes_found">No se encontraron datos de sismos</string>
+
+    <string name="toast_no_data_found">No se recibieron datos</string>
+    <string name="toast_no_earthquakes_found_due_to_internet">No hay conexión a internet</string>
+
+
+</resources>
