@@ -9,11 +9,11 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.pruebadeserializerjsondetemblorescongson.API.API;
@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,11 +38,10 @@ import static com.example.pruebadeserializerjsondetemblorescongson.utils.Utils.g
 import static com.example.pruebadeserializerjsondetemblorescongson.utils.Utils.getSortByFromSharedPrefs;
 
 
-public class EarthquakeListFragment extends Fragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class EarthquakeListFragment extends Fragment implements EarthquakeAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     private View view;
     private SharedPreferences sharedPreferences;
-    private ListView earthquakeListView;
-    private EarthquakeAdapter earthquakeAdapter;
+    private RecyclerView.Adapter adapter;
     private List<Earthquake> earthquakeList;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -61,12 +61,13 @@ public class EarthquakeListFragment extends Fragment implements AdapterView.OnIt
     }
 
     private void referenceObjects() {
-        earthquakeListView = view.findViewById(R.id.list_view);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         earthquakeList = new ArrayList<>();
-        earthquakeAdapter = new EarthquakeAdapter(getContext(), R.layout.earthquake_item, earthquakeList);
-        earthquakeListView.setAdapter(earthquakeAdapter);
-        earthquakeListView.setOnItemClickListener(this);
+        adapter = new EarthquakeAdapter(getContext(), R.layout.earthquake_item, earthquakeList, this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
         swipeRefreshLayout.setOnRefreshListener(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
     }
@@ -80,7 +81,7 @@ public class EarthquakeListFragment extends Fragment implements AdapterView.OnIt
         earthquakeReportCall =
                 earthquakeService.getReport("geojson", "NOW-1day",
                         "",
-                        getMaxResFromSharedPrefs(getContext(), sharedPreferences),
+                        getMaxResFromSharedPrefs(Objects.requireNonNull(getContext()), sharedPreferences),
                         getMinMagFromSharedPrefs(getContext(), sharedPreferences),
                         getSortByFromSharedPrefs(getContext(), sharedPreferences));
 
@@ -93,7 +94,7 @@ public class EarthquakeListFragment extends Fragment implements AdapterView.OnIt
                 swipeRefreshLayout.setRefreshing(false);
                 earthquakeList.clear();
                 earthquakeList.addAll(response.body().getEarthquakeList());
-                earthquakeAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -107,12 +108,6 @@ public class EarthquakeListFragment extends Fragment implements AdapterView.OnIt
         });
     }
 
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(earthquakeList.get(position).getUrl())));
-    }
-
     @Override
     public void onRefresh() {
         earthquakesReportRequest();
@@ -121,7 +116,6 @@ public class EarthquakeListFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onDetach() {
         super.onDetach();
-        earthquakeListView.setOnItemClickListener(null);
         swipeRefreshLayout.setOnRefreshListener(null);
     }
 
@@ -132,7 +126,7 @@ public class EarthquakeListFragment extends Fragment implements AdapterView.OnIt
                 return o2.getComparator() - o1.getComparator();
             }
         });
-        earthquakeAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     public void listaDeMenorAMayor() {
@@ -142,7 +136,7 @@ public class EarthquakeListFragment extends Fragment implements AdapterView.OnIt
                 return o1.getComparator() - o2.getComparator();
             }
         });
-        earthquakeAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     public void listaMasRecientesPrimero() {
@@ -152,7 +146,7 @@ public class EarthquakeListFragment extends Fragment implements AdapterView.OnIt
                 return o2.getHourForComparator() - o1.getHourForComparator();
             }
         });
-        earthquakeAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     private boolean isWiFiEnabled() {
@@ -162,5 +156,10 @@ public class EarthquakeListFragment extends Fragment implements AdapterView.OnIt
         } catch (Settings.SettingNotFoundException e) {
             return false;
         }
+    }
+
+    @Override
+    public void onClick(Earthquake earthquake, int position) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(earthquakeList.get(position).getUrl())));
     }
 }
