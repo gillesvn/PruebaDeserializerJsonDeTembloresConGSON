@@ -1,16 +1,20 @@
 package com.example.pruebadeserializerjsondetemblorescongson.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.pruebadeserializerjsondetemblorescongson.R;
 import com.example.pruebadeserializerjsondetemblorescongson.fragments.EarthquakeListFragment;
@@ -45,9 +49,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void referenceObjects() {
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer_layout);
+        final LinearLayout content = findViewById(R.id.content);
         earthquakeListFragment = new EarthquakeListFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.content_frame, earthquakeListFragment).commit();
         Picasso.get().load(R.drawable.eq_bg).fit().into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.image_view));
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, 0, 0) {
+            //private float scaleFactor = 6f;//Para escalar
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                float slideX = drawerView.getWidth() * slideOffset;
+                content.setTranslationX(slideX);
+                //content.setScaleX(1 - (slideOffset / scaleFactor));//Para escalar
+                //content.setScaleY(1 - (slideOffset / scaleFactor));//Para escalar
+            }
+        };
+        drawerLayout.setScrimColor(Color.TRANSPARENT);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        //drawerLayout.setDrawerElevation(0f);//Para escalar
+
     }
 
 
