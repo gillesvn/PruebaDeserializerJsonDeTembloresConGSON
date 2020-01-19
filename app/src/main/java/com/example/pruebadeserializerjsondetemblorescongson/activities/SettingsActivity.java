@@ -11,9 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.pruebadeserializerjsondetemblorescongson.R;
+
+import es.dmoral.toasty.Toasty;
 
 import static com.example.pruebadeserializerjsondetemblorescongson.utils.Utils.getMaxResFromSharedPrefs;
 import static com.example.pruebadeserializerjsondetemblorescongson.utils.Utils.getMinMagFromSharedPrefs;
@@ -90,14 +91,14 @@ public class SettingsActivity extends AppCompatActivity {
                             getPreferenceManager().getSharedPreferences().edit()
                                     .putString(preference.getKey(), getMaxResFromSharedPrefs(preference.getContext(), PreferenceManager.getDefaultSharedPreferences(preference.getContext())))
                                     .apply();
-                            Toast.makeText(preference.getContext(), getString(R.string.dialog_max_results_toast), Toast.LENGTH_SHORT).show();
+                            Toasty.error(preference.getContext(), R.string.dialog_max_results_toast, Toasty.LENGTH_SHORT, true).show();
                             return false;
                         } else {
                             preference.setSummary(newValue.toString());
                             return true;
                         }
                     } catch (java.lang.NumberFormatException e) {
-                        Toast.makeText(preference.getContext(), getString(R.string.dialog_max_results_toast_fail), Toast.LENGTH_SHORT).show();
+                        Toasty.error(preference.getContext(), R.string.dialog_max_results_toast_fail, Toasty.LENGTH_SHORT, true).show();
                         return false;
                     }
 
@@ -111,7 +112,7 @@ public class SettingsActivity extends AppCompatActivity {
                         getPreferenceManager().getSharedPreferences().edit()
                                 .putString(preference.getKey(), getMinMagFromSharedPrefs(preference.getContext(), PreferenceManager.getDefaultSharedPreferences(preference.getContext())))
                                 .apply();
-                        Toast.makeText(preference.getContext(), getString(R.string.dialog_min_mag_msg), Toast.LENGTH_SHORT).show();
+                        Toasty.error(preference.getContext(), R.string.dialog_min_mag_msg, Toasty.LENGTH_SHORT, true).show();
                         return false;
                     } else {
                         preference.setSummary(newValue.toString());

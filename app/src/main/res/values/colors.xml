@@ -8,6 +8,7 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorIcons">#212121</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="colorToastLetter">#FFFFFF</color>
 
     <color name="magnitude0">#fbe9e7</color>
     <color name="magnitude1">#ffccbc</color>

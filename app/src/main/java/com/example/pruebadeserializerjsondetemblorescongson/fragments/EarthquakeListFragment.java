@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.pruebadeserializerjsondetemblorescongson.API.API;
 import com.example.pruebadeserializerjsondetemblorescongson.API.APIServices.EarthquakeService;
@@ -29,6 +28,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,7 +89,7 @@ public class EarthquakeListFragment extends Fragment implements EarthquakeAdapte
             @Override
             public void onResponse(Call<EarthquakeReport> call, Response<EarthquakeReport> response) {
                 if (response.body().getEarthquakeList().size() == 0) {
-                    Toast.makeText(getContext(), R.string.toast_no_earthquakes_found, Toast.LENGTH_SHORT).show();
+                    Toasty.custom(getContext(), R.string.toast_no_earthquakes_found, R.drawable.ic_warning, R.color.colorPrimary, Toasty.LENGTH_SHORT, true, true).show();
                 }
                 swipeRefreshLayout.setRefreshing(false);
                 earthquakeList.clear();
@@ -101,9 +101,9 @@ public class EarthquakeListFragment extends Fragment implements EarthquakeAdapte
             public void onFailure(Call<EarthquakeReport> call, Throwable t) {
                 swipeRefreshLayout.setRefreshing(false);
                 if (!isWiFiEnabled())
-                    Toast.makeText(getContext(), R.string.toast_no_earthquakes_found_due_to_internet, Toast.LENGTH_SHORT).show();
+                    Toasty.custom(getContext(), R.string.toast_no_earthquakes_found_due_to_internet, R.drawable.ic_warning, R.color.colorPrimary, Toasty.LENGTH_SHORT, true, true).show();
                 else
-                    Toast.makeText(getContext(), R.string.toast_no_data_found, Toast.LENGTH_SHORT).show();
+                    Toasty.error(getContext(), R.string.toast_no_data_found, Toasty.LENGTH_SHORT, true).show();
             }
         });
     }
